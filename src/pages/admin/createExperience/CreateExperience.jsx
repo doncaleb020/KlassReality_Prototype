@@ -27,9 +27,9 @@ const CreateExperience = () => {
           onClick={() => handleNavigate("/3d-modal")}
         />
         <KRButton
-          label={Labels.content.image}
+          label={Labels.content.video}
           size="large"
-          onClick={() => handleNavigate("/360-image")}
+          onClick={() => handleNavigate("/360-video")}
         />
         <KRButton
           label={Labels.content.assessment}

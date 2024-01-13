@@ -48,6 +48,18 @@ a {
   font-size: 2vw;
 }
 
+.sub-title {
+  color: #fff;
+  font-size: 1.5vw;
+}
+
+.form-btn-wrp {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
 :root {
   --primary-color: #fff;
   --button-color: #ba28a9;
