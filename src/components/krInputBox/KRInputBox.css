@@ -1,0 +1,44 @@
+.kr-input-box {
+  text-align: center;
+}
+
+.kr-input-box.small {
+  font-size: 14px;
+  padding: 7px 6px;
+  outline: none;
+}
+
+/* Small input box */
+.kr-input-box.default {
+  font-size: 1vw;
+  padding: .6vw .5vw;
+  outline: none;
+}
+
+/* Large input box */
+.kr-input-box.large {
+  font-size: 1.2vw;
+  font-weight: 500;
+  padding: 14px 10px;
+  outline: none;
+}
+
+/* Small input label */
+.kr-input-label.small {
+  font-size: 0.8rem;
+}
+/* default  input label */
+.kr-input-label.default {
+  font-size: 0.9rem;
+}
+/* large input label */
+.kr-input-label.large {
+  font-size: 1.2vw;
+  font-weight: 600;
+}
+
+.kr-input_error {
+  font-size: 0.8vw;
+  color: red;
+  height: 0.8vw;
+}

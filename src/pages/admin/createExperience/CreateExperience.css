@@ -1,0 +1,23 @@
+.content-wrp {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  flex-direction: column;
+  gap: 3vw;
+}
+.exp-input-wrp {
+  width: 35%;
+}
+.exp-input-wrp {
+  width: 35%;
+}
+.content-btn-group button {
+  width: 100% !important;
+}
+.content-btn-group {
+  width: 80%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+}
