@@ -1,13 +1,12 @@
-import "./Character.css";
+import './Video360.css'
 import KRScript from "../../../../../components/krScript/KRScript";
 import KRButton from "../../../../../components/krButton/KRButton";
-import Labels from "../../../../../common/Labels";
+import Labels from '../../../../../common/Labels';
 
-const Character = () => {
+const Video360 = () => {
   return (
     <div className="character-wrp">
-      <p className="title">{Labels.character.title}</p>
-      <p className="sub-title">{Labels.character.sub_title}</p>
+      <p className="title">{Labels.video360.title}</p>
       <KRScript placeholder="Script" />
       <div className="form-btn-wrp">
         <KRButton
@@ -27,4 +26,4 @@ const Character = () => {
   );
 };
 
-export default Character;
+export default Video360;

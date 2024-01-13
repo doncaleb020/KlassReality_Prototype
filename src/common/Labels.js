@@ -14,9 +14,20 @@ const Labels = {
     experience: "Experience Name",
     character: "Character",
     model: "3D Model",
-    image: "360 Image",
+    video: "360 Video",
     assessment: "Assessment",
-    create_btn:"Create Experience"
+    create_btn: "Create Experience",
   },
+  character: {
+    title: "Character",
+    sub_title: "Enter the character script",
+  },
+  video360: {
+    title: "360 Video",
+  },
+  model3d: { title: "3D Model" },
+  script: "Script",
+  cancel: "Cancel",
+  confirm: "Confirm",
 };
 export default Labels;
