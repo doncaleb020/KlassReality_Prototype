@@ -1,0 +1,12 @@
+.login_wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 35%;
+  flex-direction: column;
+  gap: 3vw;
+}
+
+.login_input_wrp {
+  width: 100%;
+}

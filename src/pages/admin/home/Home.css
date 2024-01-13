@@ -1,0 +1,12 @@
+.home_wrp {
+  display: flex;
+  align-items: center;
+  gap: 5vw;
+}
+
+.kr-nav-card {
+  padding: 5em 2em;
+  border: 3px solid var(--button-color);
+  border-radius: 1rem;
+  font-size: 1vw;
+}

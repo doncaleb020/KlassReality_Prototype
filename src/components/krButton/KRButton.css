@@ -1,0 +1,57 @@
+/* Small Button */
+.kr-button.small {
+  font-size: 12px;
+  padding: 5px 10px;
+}
+
+/* Default Button */
+.kr-button.default {
+  font-size: 1vw;
+  padding: 0.6vw 4vw;
+}
+
+/* Large Button */
+.kr-button.large {
+  padding: 2em 4em;
+  font-size: 1.2vw;
+  font-weight: 500;
+  display: flex;
+}
+
+.kr-button {
+  border-radius: 1rem;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 3px solid var(--button-color);
+}
+.kr-button.rounded{ 
+  border-radius: 30rem;
+}
+
+.kr-button.disabled {
+  background-color: #9da8a3 !important;
+}
+.loading {
+  width: 20px;
+  height: 20px;
+  border: 3px solid #fff;
+  border-bottom-color: #c7ebcd;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotations 2s linear infinite;
+  position: absolute;
+  right: 35px;
+  transform: translate(82%, 0%);
+}
+
+@keyframes rotations {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
