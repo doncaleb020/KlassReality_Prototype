@@ -46,7 +46,7 @@ const Login = () => {
         setUserData(res.user);
         dispatch(user(res.user));
 
-        nav("/home");
+        nav("/");
       })
       .catch((err) => {
         console.log(err);
