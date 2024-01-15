@@ -14,12 +14,12 @@ function App() {
     <div className="layout_wrapper">
       <div className="layout">
         <Routes>
-          <Route path="/" element={<ProtectedRoutes />}>
-            <Route path="/home" element={<Home />} />
+          <Route  element={<ProtectedRoutes />}>
+            <Route path="/" element={<Home />} />
             {/* Create Experience Route */}
             <Route path="/create-experience" element={<CreateExperience />} />
             <Route path="/character" element={<Character />} />
-            <Route path="/3d-modal" element={<Modal3D />} />
+            <Route path="/3d-model" element={<Modal3D />} />
             <Route path="/360-video" element={<Video360 />} />
             <Route path="/assessment" element={<Assessment />} />
           </Route>

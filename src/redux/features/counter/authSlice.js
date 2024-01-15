@@ -1,14 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
-import ApplicationModal from "../../json/ApplicationModal";
 
 export const auth = createSlice({
   name: "auth",
   initialState: {
     config: window.localStorage.getItem("config")
-      ? typeof window.localStorage.getItem("config") == "string"
-        ? JSON.parse(window.localStorage.getItem("config"))
-        : window.localStorage.getItem("config")
-      : ApplicationModal,
+      ? JSON.parse(window.localStorage.getItem("config"))
+      : window.localStorage.getItem("config"),
   },
   reducers: {
     saveConfig: (state, action) => {

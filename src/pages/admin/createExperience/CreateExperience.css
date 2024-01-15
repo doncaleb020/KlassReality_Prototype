@@ -8,10 +8,12 @@
 }
 .exp-input-wrp {
   width: 35%;
+  display: grid;
+  grid-template-columns: 90% 10%;
+  align-items: center;
+  gap: 1rem;
 }
-.exp-input-wrp {
-  width: 35%;
-}
+
 .content-btn-group button {
   width: 100% !important;
 }

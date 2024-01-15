@@ -1,17 +1,25 @@
 import { createSlice } from "@reduxjs/toolkit";
 import ApplicationModal from "../../json/ApplicationModal";
 
+const { sessionModal, assessmentModal, contentModal } = ApplicationModal();
 export const application = createSlice({
   name: "application",
   initialState: {
-    applicationId: window.localStorage.getItem("applicationId")
-      ? window.localStorage.getItem("applicationId")
-      : "",
-    data: window.localStorage.getItem("data")
-      ? typeof window.localStorage.getItem("data") == "string"
-        ? JSON.parse(window.localStorage.getItem("data"))
-        : window.localStorage.getItem("data")
-      : ApplicationModal,
+    session: window.localStorage.getItem("session")
+      ? typeof window.localStorage.getItem("session") == "string"
+        ? JSON.parse(window.localStorage.getItem("session"))
+        : window.localStorage.getItem("session")
+      : sessionModal,
+    assessmentData: window.localStorage.getItem("assessmentData")
+      ? typeof window.localStorage.getItem("assessmentData") == "string"
+        ? JSON.parse(window.localStorage.getItem("assessmentData"))
+        : window.localStorage.getItem("assessmentData")
+      : assessmentModal,
+    contentData: window.localStorage.getItem("contentData")
+      ? typeof window.localStorage.getItem("contentData") == "string"
+        ? JSON.parse(window.localStorage.getItem("contentData"))
+        : window.localStorage.getItem("contentData")
+      : contentModal,
     defaultStep: window.localStorage.getItem("step")
       ? typeof window.localStorage.getItem("step") == "string"
         ? JSON.parse(window.localStorage.getItem("step"))
@@ -20,26 +28,27 @@ export const application = createSlice({
   },
 
   reducers: {
-    data: (state, action) => {
+    assessmentData: (state, action) => {
       state.data = action.payload;
-      window.localStorage.setItem("data", JSON.stringify(state.data));
+      window.localStorage.setItem("assessmentData", JSON.stringify(state.data));
+    },
+    contentData: (state, action) => {
+      state.contentData = action.payload;
+      window.localStorage.setItem("contentData", JSON.stringify(state.contentData));
     },
     step: (state, action) => {
       state.defaultStep = action.payload;
       window.localStorage.setItem("step", JSON.stringify(state.defaultStep));
     },
-    applicationId: (state, action) => {
-      state.applicationId = action.payload;
-      window.localStorage.setItem("applicationId", action.payload);
+    session: (state, action) => {
+      state.session = action.payload;
+      window.localStorage.setItem("session", JSON.stringify(action.payload));
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const {
-  data,
-  step,
-  applicationId,
-} = application.actions;
+export const { assessmentData, contentData, step, session } =
+  application.actions;
 
 export default application.reducer;

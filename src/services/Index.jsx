@@ -4,3 +4,6 @@ import requests from "./httpServices";
 export const TeacherLogin = async (data) => {
   return await requests.post(`auth/login`, data);
 };
+export const CreateSession = async (data) => {
+  return await requests.post(`sessions`, data);
+};

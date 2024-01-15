@@ -18,8 +18,7 @@ instance.interceptors.request.use(function (config) {
     ...config,
     headers: {
       "Access-Control-Allow-Origin": "*",
-      application_id: config.headers.application_id,
-      token: `${token}`,
+      Authorization: `Bearer ${token}`,
     },
   };
 });
