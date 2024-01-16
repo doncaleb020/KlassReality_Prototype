@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 // import Validation from "../../../../../common/Validation";
 import { contentData as ContentData } from "../../../../../redux/features/counter/applicationSlice";
+import { CreateContent } from "../../../../../services/Index";
 
 const Character = () => {
   const dispatch = useDispatch();
@@ -34,7 +35,19 @@ const Character = () => {
     nav("/create-experience");
   };
   const onConfirm = () => {
-    goBack();
+    const formData = new FormData();
+    formData.append("sessionId", content.sessionId);
+    formData.append("script", content.script);
+    CreateContent(formData)
+      .then((res) => {
+        const duplicateObject = { ...content };
+        setContent({ ...duplicateObject, id: res._id });
+        dispatch(ContentData({ ...duplicateObject, id: res._id }));
+        goBack(); 
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
   return (
     <div className="character-wrp">

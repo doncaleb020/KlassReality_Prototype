@@ -29,8 +29,8 @@ export const application = createSlice({
 
   reducers: {
     assessmentData: (state, action) => {
-      state.data = action.payload;
-      window.localStorage.setItem("assessmentData", JSON.stringify(state.data));
+      state.assessmentData = action.payload;
+      window.localStorage.setItem("assessmentData", JSON.stringify(state.assessmentData));
     },
     contentData: (state, action) => {
       state.contentData = action.payload;
@@ -44,11 +44,24 @@ export const application = createSlice({
       state.session = action.payload;
       window.localStorage.setItem("session", JSON.stringify(action.payload));
     },
+    resetApplication: (state) => {
+      // Reset the state to the initial state
+      state.session = sessionModal;
+      state.assessmentData = assessmentModal;
+      state.contentData = contentModal;
+      state.defaultStep = 1;
+
+      // Clear local storage
+      window.localStorage.removeItem("session");
+      window.localStorage.removeItem("assessmentData");
+      window.localStorage.removeItem("contentData");
+      window.localStorage.removeItem("step");
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { assessmentData, contentData, step, session } =
+export const { assessmentData, contentData, step, session,resetApplication } =
   application.actions;
 
 export default application.reducer;

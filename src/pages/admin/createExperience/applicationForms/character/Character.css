@@ -1,8 +1,5 @@
 .character-wrp {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   width: 50%;
-  flex-direction: column;
-  gap: 3vw;
+  height: calc(100vh - 10rem);
+  overflow: auto;
 }
