@@ -4,42 +4,57 @@ import KRButton from "../../../../../components/krButton/KRButton";
 import Labels from "../../../../../common/Labels";
 import KRUpload from "../../../../../components/krUpload/KRUpload";
 import { useNavigate } from "react-router-dom";
-import common from "../../../../../common/common";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
-import { contentData as ContentData } from "../../../../../redux/features/counter/applicationSlice";
+import {
+  contentData as ContentData,
+  assessmentData as AssessmentData,
+} from "../../../../../redux/features/counter/applicationSlice";
+import { PatchContent } from "../../../../../services/Index";
 
 const Video360 = () => {
-  const { convertImageToBase64 } = common();
   const dispatch = useDispatch();
   const contentData = useSelector((state) => state.application.contentData);
+  const assessmentData = useSelector(
+    (state) => state.application.assessmentData
+  );
   const [content, setContent] = useState(contentData);
 
   const handleFile = async (e) => {
     const { name, files } = e.target;
     const duplicateObject = { ...content };
-    await convertImageToBase64(files[0])
-      .then((res) => (duplicateObject[name] = res))
-      .catch((err) => console.log(err));
+    duplicateObject[name] = files[0];
     setContent(duplicateObject);
-    dispatch(ContentData(duplicateObject));
   };
+
   const handleDeleteFile = () => {
     const duplicateObject = { ...content };
     duplicateObject.image = "";
     setContent(duplicateObject);
-    dispatch(ContentData(duplicateObject));
   };
   const nav = useNavigate();
   const goBack = () => {
     nav("/create-experience");
   };
   const onConfirm = () => {
-    goBack();
+    const formData = new FormData();
+    formData.append("image", content.image);
+    PatchContent(content.id, formData)
+      .then((res) => {
+        const duplicateObject = { ...content };
+        const duplicateAssessment = structuredClone(assessmentData);
+        setContent({ ...duplicateObject, image: res.image });
+        dispatch(ContentData({ ...duplicateObject, image: res.image }));
+        duplicateAssessment[0].sessionId = res.sessionId;
+        dispatch(AssessmentData(duplicateAssessment));
+        goBack();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
-  console.log(content)
   return (
-    <div className="character-wrp">
+    <div className="video-wrp">
       <p className="title">{Labels.video360.title}</p>
       <KRUpload
         name="image"
@@ -48,7 +63,8 @@ const Video360 = () => {
         errorMessage={""}
         value={content.image}
         onDelete={handleDeleteFile}
-        fileType="image"
+        fileType=".mp4"
+        label="Upload 360 Video"
         onChange={(e) => handleFile(e)}
       />
       <KRScript

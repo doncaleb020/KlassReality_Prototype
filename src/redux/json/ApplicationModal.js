@@ -20,22 +20,22 @@ const ApplicationModal = () => {
   };
   const assessmentModal = [
     {
-      question: "What is the capital of France?",
+      question: "",
       options: [
         {
-          text: "Berlin",
+          text: "",
           isCorrect: false,
         },
         {
-          text: "Paris",
-          isCorrect: true,
-        },
-        {
-          text: "Madrid",
+          text: "",
           isCorrect: false,
         },
         {
-          text: "Rome",
+          text: "",
+          isCorrect: false,
+        },
+        {
+          text: "",
           isCorrect: false,
         },
       ],

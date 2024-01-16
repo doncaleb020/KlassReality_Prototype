@@ -27,19 +27,17 @@ const KRUpload = ({
   maxSize,
   labelPosition,
   name,
-  errorMessage,
   value,
   onDelete,
   fileType,
+  label,
 }) => {
   const [fileValue, setFileValue] = useState(value || "");
-  const [error, setError] = useState(errorMessage);
-
   const inputRef = useRef(null);
 
   const handleFileUploadButtonClick = () => {
     if (!disabled) {
-      setError("");
+
       inputRef.current.click();
     }
   };
@@ -49,7 +47,6 @@ const KRUpload = ({
     if (maxSize) {
       const selectedFile = files[0];
       if (selectedFile && selectedFile.size > maxSize * 1000000) {
-        setError(`File size exceeds the limit of ${maxSize} MB.`);
         return;
       }
     }
@@ -62,18 +59,17 @@ const KRUpload = ({
   const handleDeleteFile = () => {
     inputRef.current.value = null;
     setFileValue("");
-    setError("");
     if (onDelete) {
       onDelete(name, fileValue);
     }
   };
 
   const defaultStyles = {
-    padding: "1vw 3vw",
+    padding: "1vw 5vw",
     borderRadius: "5px",
     fontSize: "1.1vw",
     fontWeight: 600,
-    background: "#1B4332",
+    background: "var(--button-color)",
     color: "#fff",
     border: "none",
     cursor: disabled ? "not-allowed" : "pointer",
@@ -97,28 +93,23 @@ const KRUpload = ({
             type="button"
             disabled={disabled || fileValue != ""}
           >
-            <MdFileUpload />
-            {"Upload"}
+            <MdFileUpload style={{ fontSize: "2vw" }} />
           </button>
-          <div
-            style={{ visibility: `${error != "" ? "unset" : "hidden"}` }}
-            className={`p-file-upload-error ${error != "" ? "error" : ""}`}
-          >
-            {error}
-          </div>
-
-          <div
+          <button
             className="upload_view_delete"
             style={{
-              visibility: `${fileValue ? "unset" : "hidden"}`,
+              display: `${fileValue ? "flex" : "none"}`,
             }}
+            onClick={handleDeleteFile}
           >
-            
-            <button onClick={handleDeleteFile}>
-              <RiDeleteBinFill />
-            </button>
-          </div>
+            <RiDeleteBinFill />
+          </button>
         </div>
+        {label && (
+          <p className="label">
+            {label} <span className="format">format: {fileType}</span>
+          </p>
+        )}
         <input
           type="file"
           ref={inputRef}
@@ -147,9 +138,8 @@ KRUpload.propTypes = {
   maxSize: PropTypes.number,
   labelPosition: PropTypes.string,
   name: PropTypes.string,
-  errorMessage: PropTypes.string,
   preview: PropTypes.bool,
-  value: PropTypes.string,
+  value: PropTypes.any,
   whiteBg: PropTypes.bool,
   onDelete: PropTypes.func,
   fileType: PropTypes.string,
@@ -160,7 +150,6 @@ KRUpload.defaultProps = {
   required: false,
   labelPosition: "top",
   name: "",
-  errorMessage: "",
   value: "",
 };
 

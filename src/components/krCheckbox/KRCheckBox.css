@@ -1,0 +1,19 @@
+.kr-check-box-wrp {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.9vw;
+}
+
+.uncheck {
+  color: red;
+}
+
+.kr-check-box-wrp {
+  background: none;
+  border: none;
+}
+
+.check {
+  color: green;
+}

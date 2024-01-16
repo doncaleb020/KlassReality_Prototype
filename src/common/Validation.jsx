@@ -13,9 +13,35 @@ const Validation = () => {
     model: "",
     image: "",
   };
+
+  const validateAssessment = [
+    {
+      question: false,
+      options: [
+        {
+          text: false,
+          isCorrect: false,
+        },
+        {
+          text: false,
+          isCorrect: false,
+        },
+        {
+          text: false,
+          isCorrect: false,
+        },
+        {
+          text: false,
+          isCorrect: false,
+        },
+      ],
+    },
+  ];
+
   return {
     validateExperience,
     validateContent,
+    validateAssessment
   };
 };
 

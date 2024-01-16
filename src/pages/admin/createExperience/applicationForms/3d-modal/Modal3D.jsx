@@ -3,14 +3,13 @@ import KRScript from "../../../../../components/krScript/KRScript";
 import Labels from "../../../../../common/Labels";
 import KRButton from "../../../../../components/krButton/KRButton";
 import KRUpload from "../../../../../components/krUpload/KRUpload";
-import common from "../../../../../common/common";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { contentData as ContentData } from "../../../../../redux/features/counter/applicationSlice";
 import { useNavigate } from "react-router-dom";
+import { PatchContent } from "../../../../../services/Index";
 
 const Modal3D = () => {
-  const { convertImageToBase64 } = common();
   const dispatch = useDispatch();
   const contentData = useSelector((state) => state.application.contentData);
   const [content, setContent] = useState(contentData);
@@ -18,36 +17,44 @@ const Modal3D = () => {
   const handleFile = async (e) => {
     const { name, files } = e.target;
     const duplicateObject = { ...content };
-    await convertImageToBase64(files[0])
-      .then((res) => (duplicateObject[name] = res))
-      .catch((err) => console.log(err));
+    duplicateObject[name] = files[0];
     setContent(duplicateObject);
-    dispatch(ContentData(duplicateObject));
   };
+
   const handleDeleteFile = () => {
     const duplicateObject = { ...content };
     duplicateObject.model = "";
     setContent(duplicateObject);
-    dispatch(ContentData(duplicateObject));
   };
   const nav = useNavigate();
   const goBack = () => {
     nav("/create-experience");
   };
   const onConfirm = () => {
-    goBack();
+    const formData = new FormData();
+    formData.append("model", content.model);
+    PatchContent(content.id, formData)
+      .then((res) => {
+        const duplicateObject = { ...content };
+        setContent({ ...duplicateObject, model: res.model });
+        dispatch(ContentData({ ...duplicateObject, model: res.model }));
+        goBack();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
   return (
-    <div className="character-wrp">
+    <div className="model-wrp">
       <p className="title">{Labels.model3d.title}</p>
       <KRUpload
         name="model"
         disabled={false}
-        maxSize={10}
         errorMessage={""}
         value={content.model}
         onDelete={handleDeleteFile}
-        fileType="image"
+        fileType=".fbx,.glb"
+        label="Upload 3D model"
         onChange={(e) => handleFile(e)}
       />
       <KRScript

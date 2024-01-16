@@ -3,18 +3,22 @@ import Labels from "../../../common/Labels";
 import KRButton from "../../../components/krButton/KRButton";
 import KRInputBox from "../../../components/krInputBox/KRInputBox";
 import "./createExperience.css";
-import { CreateSession } from "../../../services/Index";
+import { CreateSession, DeploySession } from "../../../services/Index";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import {
   session as Session,
   contentData as ContentData,
+  resetApplication,
 } from "../../../redux/features/counter/applicationSlice";
 import Validation from "../../../common/Validation";
 const CreateExperience = () => {
   const dispatch = useDispatch();
   const session = useSelector((state) => state.application.session);
   const contentData = useSelector((state) => state.application.contentData);
+  const assessmentData = useSelector(
+    (state) => state.application.assessmentData
+  );
   const [experience, setExperience] = useState(session);
 
   const { validateExperience } = Validation();
@@ -47,7 +51,7 @@ const CreateExperience = () => {
           is_sessionId: true,
         }));
         const duplicateContent = { ...contentData };
-        let newContent = { ...duplicateContent, sessionId: res.sessionId };
+        let newContent = { ...duplicateContent, sessionId: res.id };
         dispatch(ContentData(newContent));
       })
       .catch((err) => {
@@ -55,9 +59,25 @@ const CreateExperience = () => {
       });
   };
 
+  const deployExperience = () => {
+    DeploySession(experience.id)
+      .then((res) => {
+        console.log(res)
+        dispatch(resetApplication());
+        nav("/");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   useEffect(() => {
-    if ("sessionId" in experience) {
-      setValidate((prev) => ({ ...prev, is_sessionId: true, is_experience: true }));
+    if ("id" in experience) {
+      setValidate((prev) => ({
+        ...prev,
+        is_sessionId: true,
+        is_experience: true,
+      }));
     }
     if (contentData.script !== "") {
       setValidate((prev) => ({ ...prev, is_character: true }));
@@ -67,6 +87,9 @@ const CreateExperience = () => {
     }
     if (contentData.image !== "") {
       setValidate((prev) => ({ ...prev, is_image: true }));
+    }
+    if (assessmentData[0] && assessmentData[0].id) {
+      setValidate((prev) => ({ ...prev, is_assessment: true }));
     }
   }, [experience]);
 
@@ -122,7 +145,7 @@ const CreateExperience = () => {
         color="#fff"
         rounded={true}
         disabled={!validate.is_assessment}
-        onClick={() => onsubmit()}
+        onClick={() => deployExperience()}
       />
     </div>
   );

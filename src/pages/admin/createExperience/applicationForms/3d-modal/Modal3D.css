@@ -1,0 +1,5 @@
+.model-wrp {
+  width: 50%;
+  height: calc(100vh - 10rem);
+  overflow: auto;
+  }
