@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { assessmentData as AssessmentData } from "../../../../../redux/features/counter/applicationSlice";
 import KRCheckBox from "../../../../../components/krCheckbox/KRCheckBox";
 import { CreateAssessments } from "../../../../../services/Index";
+import { Flip, ToastContainer, toast } from "react-toastify";
 
 const Assessment = () => {
   const assessmentData = useSelector(
@@ -15,6 +16,7 @@ const Assessment = () => {
   const dispatch = useDispatch();
   const [assessment, setAssessment] = useState(assessmentData);
   const [disabled, setDisabled] = useState(true);
+  const [loading, setLoading] = useState(false);
   const nav = useNavigate();
 
   const goBack = () => {
@@ -30,13 +32,39 @@ const Assessment = () => {
   };
 
   const onConfirm = () => {
+    setLoading(true);
     CreateAssessments(assessment)
       .then((res) => {
+        toast.success("Successfully Created!", {
+          position: "top-right",
+          autoClose: 300,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: false,
+          theme: "dark",
+          transition: Flip,
+        });
+        setLoading(false);
         setAssessment(res);
         dispatch(AssessmentData(res));
-        goBack();
+        setTimeout(() => {
+          goBack();
+        }, 1500);
       })
       .catch((err) => {
+        setLoading(false);
+
+        toast.error("Error Status Code 500", {
+          position: "top-right",
+          autoClose: 300,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: false,
+          theme: "dark",
+          transition: Flip,
+        });
         console.log(err);
       });
   };
@@ -47,6 +75,13 @@ const Assessment = () => {
     if (name === "question") {
       duplicateArray[index][name] = value;
     } else if (name === "isCorrect") {
+      if (value === true) {
+        duplicateArray[index].options.forEach((option, i) => {
+          if (i !== ansIndex) {
+            duplicateArray[index].options[i][name] = !value;
+          }
+        });
+      }
       duplicateArray[index].options[ansIndex][name] = value;
     } else {
       duplicateArray[index].options[ansIndex].text = value;
@@ -61,7 +96,7 @@ const Assessment = () => {
       options: [
         {
           text: "",
-          isCorrect: false,
+          isCorrect: true,
         },
         {
           text: "",
@@ -83,12 +118,8 @@ const Assessment = () => {
     const isAllValid = assessment.every((item) => {
       const isQuestionValid =
         item.question.trim() !== "" && item.question.length > 5;
-      const isCorrectValid = item.options.some(
-        (ans) => ans.isCorrect
-      );
-      const isTextValid = item.options.every(
-        (ans) => ans.text.trim() !== ""
-      );
+      const isCorrectValid = item.options.some((ans) => ans.isCorrect);
+      const isTextValid = item.options.every((ans) => ans.text.trim() !== "");
       return isQuestionValid && isTextValid && isCorrectValid;
     });
 
@@ -101,6 +132,7 @@ const Assessment = () => {
   };
   return (
     <div className="assessment-wrp">
+      <ToastContainer />
       <p className="title">Assessment</p>
       {assessment.map((asses, index) => (
         <div className="mcq-qrp" key={index}>
@@ -164,6 +196,7 @@ const Assessment = () => {
           backgroundColor="#586d44"
           style={{ border: "none" }}
           disabled={disabled}
+          loading={loading}
           onClick={() => onConfirm()}
         />
       </div>

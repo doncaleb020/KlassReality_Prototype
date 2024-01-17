@@ -1,13 +1,10 @@
-import { useState } from "react";
 import { FaCheckCircle } from "react-icons/fa";
 import { FaCircleXmark } from "react-icons/fa6";
 import PropTypes from "prop-types";
-import './KRCheckBox.css'
+import "./KRCheckBox.css";
 
 const KRCheckBox = ({ name, value, onchange, disabled }) => {
-  const [checked, setChecked] = useState(value || false);
   const handleChange = () => {
-    setChecked(!checked);
     onchange({ target: { value: !value, name: name } });
   };
   return (
@@ -16,7 +13,7 @@ const KRCheckBox = ({ name, value, onchange, disabled }) => {
       onClick={() => handleChange()}
       disabled={disabled}
     >
-      {checked ? (
+      {value ? (
         <FaCheckCircle className="check" />
       ) : (
         <FaCircleXmark className="uncheck" />

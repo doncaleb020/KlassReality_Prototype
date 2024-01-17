@@ -42,10 +42,10 @@ const KRButton = ({
       type="button"
       onClick={onClick}
       className={`kr-button ${rounded ? "rounded" : ""} ${size} ${className} ${
-        disabled ? "disabled" : ""
+        disabled || loading ? "disabled" : ""
       } `}
       style={buttonStyle}
-      disabled={disabled}
+      disabled={disabled || loading}
     >
       {label} <span className={`${loading ? "loading" : ""}`}></span>
     </button>

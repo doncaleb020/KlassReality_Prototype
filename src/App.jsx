@@ -8,6 +8,7 @@ import Character from "./pages/admin/createExperience/applicationForms/character
 import Modal3D from "./pages/admin/createExperience/applicationForms/3d-modal/Modal3D";
 import Assessment from "./pages/admin/createExperience/applicationForms/assessment/Assessment";
 import Video360 from "./pages/admin/createExperience/applicationForms/360-video/video360";
+import ViewExperience from "./pages/admin/viewExperience/ViewExperience";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
             <Route path="/3d-model" element={<Modal3D />} />
             <Route path="/360-video" element={<Video360 />} />
             <Route path="/assessment" element={<Assessment />} />
+            <Route path="/view-experience" element={<ViewExperience />} />
           </Route>
           <Route path="/login" element={<Login />} />
         </Routes>
