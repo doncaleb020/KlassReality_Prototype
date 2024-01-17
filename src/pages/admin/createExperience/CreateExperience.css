@@ -9,7 +9,7 @@
 .exp-input-wrp {
   width: 35%;
   display: grid;
-  grid-template-columns: 90% 10%;
+  grid-template-columns: 80% 10% 10%;
   align-items: center;
   gap: 1rem;
 }

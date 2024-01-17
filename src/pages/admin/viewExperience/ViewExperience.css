@@ -1,0 +1,53 @@
+.view-exp-wrp {
+  background: #fff;
+  padding: 2vw;
+  border: 3px solid var(--button-color);
+  border-radius: 1rem;
+  width: 60%;
+}
+
+.view-exp-wrp .title {
+  color: #000;
+}
+
+.exp-card-wrp {
+  display: grid;
+  align-items: center;
+  grid-template-columns: 1fr 1fr 1fr;
+  height: 100%;
+  justify-content: center;
+  max-height: calc(100vh - 66vh);
+  gap: 1.5vw;
+  margin-bottom: 2vw;
+  max-height: calc(100vh - 66vh);
+  overflow: auto;
+}
+
+.exp-card.selected {
+  background: var(--button-color);
+}
+
+.exp-card {
+  padding: 0.5vw 4vw;
+  color: #fff;
+  background: black;
+  border-radius: 1rem;
+  font-size: 0.9vw;
+  border: none;
+  transition: 0.25s all ease-in-out;
+}
+
+.exp-card:hover {
+  background: var(--button-color);
+}
+
+.deploy-wrp {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.deploy-btn {
+  font-size: 0.8vw !important;
+  padding: 0.4vw 4vw !important;
+}

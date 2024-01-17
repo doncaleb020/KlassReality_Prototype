@@ -17,6 +17,8 @@ const ApplicationModal = () => {
     script: "",
     model: "",
     image: "",
+    modelScript: "",
+    imageScript: "",
   };
   const assessmentModal = [
     {
@@ -24,7 +26,7 @@ const ApplicationModal = () => {
       options: [
         {
           text: "",
-          isCorrect: false,
+          isCorrect: true,
         },
         {
           text: "",

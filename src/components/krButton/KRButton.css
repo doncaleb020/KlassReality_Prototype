@@ -31,7 +31,8 @@
 }
 
 .kr-button.disabled {
-  background-color: #9da8a3 !important;
+  background-color: #67195e !important;
+  color: #fff !important;
 }
 .loading {
   width: 20px;

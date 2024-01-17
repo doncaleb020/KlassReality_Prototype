@@ -3,7 +3,7 @@ import Labels from "../../../common/Labels";
 import KRButton from "../../../components/krButton/KRButton";
 import KRInputBox from "../../../components/krInputBox/KRInputBox";
 import "./createExperience.css";
-import { CreateSession, DeploySession } from "../../../services/Index";
+import { CreateSession } from "../../../services/Index";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import {
@@ -12,6 +12,8 @@ import {
   resetApplication,
 } from "../../../redux/features/counter/applicationSlice";
 import Validation from "../../../common/Validation";
+import { Flip, ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const CreateExperience = () => {
   const dispatch = useDispatch();
   const session = useSelector((state) => state.application.session);
@@ -53,22 +55,47 @@ const CreateExperience = () => {
         const duplicateContent = { ...contentData };
         let newContent = { ...duplicateContent, sessionId: res.id };
         dispatch(ContentData(newContent));
+        toast.success("Session Created Successfully!", {
+          position: "top-right",
+          autoClose: 300,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: false,
+          theme: "dark",
+          transition: Flip,
+        });
       })
       .catch((err) => {
         console.log(err);
+        toast.error("Error Status Code 500", {
+          position: "top-right",
+          autoClose: 300,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: false,
+          theme: "dark",
+          transition: Flip,
+        });
       });
   };
 
   const deployExperience = () => {
-    DeploySession(experience.id)
-      .then((res) => {
-        console.log(res)
-        dispatch(resetApplication());
-        nav("/");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    toast.success("Experience Created Successfully!", {
+      position: "top-right",
+      autoClose: 300,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: false,
+      theme: "dark",
+      transition: Flip,
+    });
+    dispatch(resetApplication());
+    setTimeout(() => {
+      nav("/");
+    }, 1500);
   };
 
   useEffect(() => {
@@ -95,6 +122,7 @@ const CreateExperience = () => {
 
   return (
     <div className="content-wrp">
+      <ToastContainer />
       <p className="title">{Labels.content.title}</p>
       <div className="exp-input-wrp">
         <KRInputBox

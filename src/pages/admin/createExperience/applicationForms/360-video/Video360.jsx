@@ -11,6 +11,7 @@ import {
   assessmentData as AssessmentData,
 } from "../../../../../redux/features/counter/applicationSlice";
 import { PatchContent } from "../../../../../services/Index";
+import { Flip, ToastContainer, toast } from "react-toastify";
 
 const Video360 = () => {
   const dispatch = useDispatch();
@@ -19,6 +20,7 @@ const Video360 = () => {
     (state) => state.application.assessmentData
   );
   const [content, setContent] = useState(contentData);
+  const [loading, setLoading] = useState(false);
 
   const handleFile = async (e) => {
     const { name, files } = e.target;
@@ -37,24 +39,58 @@ const Video360 = () => {
     nav("/create-experience");
   };
   const onConfirm = () => {
+    setLoading(true);
     const formData = new FormData();
     formData.append("image", content.image);
+    formData.append("imageScript", content.imageScript);
     PatchContent(content.id, formData)
       .then((res) => {
+        toast.success("Successfully Created!", {
+          position: "top-right",
+          autoClose: 300,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: false,
+          theme: "dark",
+          transition: Flip,
+        });
+        setLoading(false);
         const duplicateObject = { ...content };
         const duplicateAssessment = structuredClone(assessmentData);
         setContent({ ...duplicateObject, image: res.image });
         dispatch(ContentData({ ...duplicateObject, image: res.image }));
         duplicateAssessment[0].sessionId = res.sessionId;
         dispatch(AssessmentData(duplicateAssessment));
-        goBack();
+        setTimeout(() => {
+          goBack();
+        }, 1500);
       })
       .catch((err) => {
+        setLoading(false);
+        toast.error("Error Status Code 500", {
+          position: "top-right",
+          autoClose: 300,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: false,
+          theme: "dark",
+          transition: Flip,
+        });
         console.log(err);
       });
   };
+
+  const handleScript = (e) => {
+    const { name, value } = e.target;
+    const duplicateObject = { ...content };
+    duplicateObject[name] = value;
+    setContent(duplicateObject);
+  };
   return (
     <div className="video-wrp">
+      <ToastContainer />
       <p className="title">{Labels.video360.title}</p>
       <KRUpload
         name="image"
@@ -69,9 +105,9 @@ const Video360 = () => {
       />
       <KRScript
         placeholder="Script"
-        value={content.script}
-        disabled={true}
-        onChange={() => console.log("hii")}
+        value={content.imageScript}
+        name="imageScript"
+        onChange={(e) => handleScript(e)}
       />
       <div className="form-btn-wrp">
         <KRButton
@@ -86,6 +122,8 @@ const Video360 = () => {
           color="#fff"
           backgroundColor="#586d44"
           style={{ border: "none" }}
+          loading={loading}
+          disabled={!(content.image != "" && content.imageScript != "")}
           onClick={() => onConfirm()}
         />
       </div>

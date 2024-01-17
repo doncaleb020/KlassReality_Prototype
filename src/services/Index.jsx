@@ -17,5 +17,11 @@ export const CreateAssessments = async (data) => {
   return await requests.post(`assessments`, data);
 };
 export const DeploySession = async (id) => {
-  return await requests.patch(`/sessions/deploy/${id}`);
+  return await requests.patch(`sessions/deploy/${id}`);
+};
+export const DeleteSession = async (id) => {
+  return await requests.delete(`sessions/${id}`);
+};
+export const GetAllExperience = async () => {
+  return await requests.get(`sessions`);
 };
